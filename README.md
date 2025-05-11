@@ -1,67 +1,89 @@
 # Rush00
 
-   ***Quiz Terminal***  
+# Jeu du Nombre Mystère en Bash
 
-**🎯 Description du Projet**  
-Ce script Bash est un **jeu de quiz interactif en terminal** qui teste vos connaissances sur **les commandes Unix (niveau C00)**, la **culture nigérienne**, et des **énigmes logiques**. Le jeu sélectionne aléatoirement **5 questions** parmi une banque de 20, avec un système de **points de vie (PV)** et de **score**.  
+*Un projet de script Bash interactif avec gestion des couleurs et validation d'entrée*
 
-**✨ Fonctionnalités**  
-- ✅ **5 questions par partie** (choisies aléatoirement parmi 20)  
-- ❤️ **Gestion des PV** (100 PV initiaux, -20 PV par erreur)  
-- 🏆 **Calcul du score** (+20 points par bonne réponse)  
-- 🎨 **Interface colorée** pour une meilleure expérience utilisateur  
-- 🔍 **Validation intelligente** (insensible à la casse et aux espaces)
-   
-- 📊 **Résultats détaillés** à la fin du jeu  
+## Présentation
+Dans le cadre de notre projet d'équipe, nous avons développé un script Bash implémentant le jeu classique du "Nombre Mystère". Le joueur doit deviner un nombre aléatoire entre 1 et 100 en maximum 10 tentatives.
 
-**📚 Thèmes des Questions**  
+## Fonctionnalités détaillées
 
-1. ***Commandes Unix (C00)*** : `echo`, `mkdir`, `ls`, `date`, etc.
-  
-3. ***Culture nigérienne***
-   
-5. ***Géographie, histoire, traditions***
-   
-7. **Énigmes** : Devinettes logiques et jeux de mots  
-
-***Comment Utiliser ?***  
+### Affichage en couleur
+Nous utilisons des codes ANSI pour une expérience utilisateur améliorée :
 ```bash
-chmod +x quiz_terminal.sh  # Rend le script exécutable
-./quiz_terminal.sh         # Lance le jeu
+RED='\033[0;31m'    # Messages d'erreur
+GREEN='\033[0;32m'  # Messages de réussite
+YELLOW='\033[1;33m' # Indices (plus grand/plus petit)
+NC='\033[0m'        # Réinitialisation des couleurs
 ```
 
-***🛠️Structure du Code*** 
-
-- **Configuration** : Variables pour personnaliser le jeu (PV, nombre de questions, etc.)
-  
-- **Banque de questions** : Un tableau Bash avec des questions/réponses au format `"Question|Réponse"`
-  
-- **Boucle principale** : Gère le déroulement du jeu, vérifie les réponses et met à jour le score
-
-- **Affichage dynamique** : Messages colorés et feedback immédiat  
-
-**📦 Personnalisation**  
-- **Ajouter des questions** : Modifiez le tableau `questions` dans le script.  
-- **Changer la difficulté** : Ajustez `PV_INITIAL`, `PERTE_PV` ou `GAIN_POINTS`.  
-
-**🌟 Pourquoi ce Projet ?**  
-- Idéal pour **réviser les commandes Unix** de manière ludique  
-- Parfait pour un **projet d'équipe** (ajout de questions collaboratif)  
-- Correspond aux **exigences du Rush "Terminal Hero"** (script Bash, gestion des erreurs, interactivité)  
-
-***Exemple de Sortie**  
+### Génération aléatoire
+Le nombre mystère est généré ainsi :
+```bash
+nombre_mystere=$((RANDOM % 100 + 1))  # Nombre entre 1 et 100
 ```
-🌟 QUIZ TERMINAL 🌟  
-Question 1: Comment créer un dossier 'test' ?  
-> mkdir test  
-✅ Correct! (+20 points)  
-PV: 100/100 | Score: 20  
-[...]  
-=== RESULTATS ===  
-Score final : 80/100  
-PV restants : 60/100  
-👍 Bon travail !  
-```  
 
-**🔗 Licence**  
-Libre d'utilisation et de modification (projet éducatif).  
+### Mécanisme de jeu
+- Variables clés :
+  ```bash
+  essais=0           # Compteur de tentatives
+  essais_max=10      # Limite d'essais
+  trouve=false       # Statut de la partie
+  ```
+- Boucle principale :
+  ```bash
+  while [ $essais -lt $essais_max ] && [ "$trouve" = false ]; do
+    # Logique du jeu...
+  done
+  ```
+
+### Validation des entrées
+Le script vérifie que l'entrée est bien un nombre entre 1 et 100 :
+```bash
+if [[ "$proposition" =~ ^[0-9]+$ ]] && [ "$proposition" -ge 1 ] && [ "$proposition" -le 100 ]; then
+    # Entrée valide
+else
+    echo -e "${RED}Erreur : entrez un nombre entre 1 et 100!${NC}"
+fi
+```
+
+## Exemple d'exécution
+```
+Bienvenue dans le jeu du Nombre Mystère!
+Je pense à un nombre entre 1 et 100. Saurez-vous le deviner en 10 essais maximum?
+
+Essai n°1/10 - Entrez votre proposition (1-100) : 50
+C'est plus grand!
+Il vous reste 9 essai(s).
+
+Essai n°2/10 - Entrez votre proposition (1-100) : 75
+C'est plus petit!
+Il vous reste 8 essai(s).
+
+[...]
+
+Félicitations! Vous avez trouvé le nombre mystère 73 en 7 essais!
+```
+
+## Ce que nous avons appris
+Ce projet nous a permis de :
+- Maîtriser davantage la syntaxe Bash
+- Implémenter des structures de contrôle (boucles, conditions)
+- Gérer la validation des entrées utilisateur
+- Utiliser les couleurs ANSI pour l'interface
+- Développer un script interactif et robuste
+
+## Installation & Exécution
+1. Rendez-le exécutable :
+   ```bash
+   chmod +x nombre_mystere.sh
+   ```
+2. Lancez le jeu :
+   ```bash
+   ./nombre_mystere.sh
+   ```
+
+## Auteurs
+- Razak
+- Hadiza
