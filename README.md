@@ -1,5 +1,6 @@
 # Rush00
-**📝 README - Quiz Terminal**  
+
+   ***Quiz Terminal***  
 
 **🎯 Description du Projet**  
 Ce script Bash est un **jeu de quiz interactif en terminal** qui teste vos connaissances sur **les commandes Unix (niveau C00)**, la **culture nigérienne**, et des **énigmes logiques**. Le jeu sélectionne aléatoirement **5 questions** parmi une banque de 20, avec un système de **points de vie (PV)** et de **score**.  
